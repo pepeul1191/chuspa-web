@@ -26,12 +26,12 @@ function javascript() {
   }else{
     return src([
       'public/build/bundle.app.min.js',
-      'node_modules/jquery/dist/jquery.min.js',
-      'node_modules/owl.carousel2/dist/owl.carousel.min.js',
-      'node_modules/wowjs/dist/wow.min.js',
-      'node_modules/jquery.easing/jquery.easing.min.js',
-      'node_modules/waypoints/lib/noframework.waypoints.min.js',
-      'public/assets/js/site.js',
+      //'node_modules/jquery/dist/jquery.min.js',
+      //'node_modules/owl.carousel2/dist/owl.carousel.min.js',
+      //'node_modules/wowjs/dist/wow.min.js',
+      //'node_modules/jquery.easing/jquery.easing.min.js',
+      //'node_modules/waypoints/lib/noframework.waypoints.min.js',
+      //'public/assets/js/site.js',
     ])
     .pipe(concat('site.js'))
     .pipe(uglify())
@@ -52,8 +52,8 @@ function css() {
   }else{
     return src([
       'public/build/bundle.app.css',
-      'node_modules/animate.css/animate.css',
-      'node_modules/owl.carousel2/dist/assets/owl.carousel.css',
+      //'node_modules/animate.css/animate.css',
+      //'node_modules/owl.carousel2/dist/assets/owl.carousel.css',
       'public/assets/css/styles.css'
     ])
     .pipe(concat('site.css'))
