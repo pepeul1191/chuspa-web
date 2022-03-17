@@ -120,7 +120,6 @@ function mailToVisitor($data, $f3)
     array_values($data_layout), 
     $layout
   );
-  echo $message;exit();
   // send mail
   $mail = new PHPMailer(true);
   try {
