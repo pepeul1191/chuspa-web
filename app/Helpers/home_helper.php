@@ -50,6 +50,7 @@ function enterpriseData()
     'facebook' => $_ENV['FACEBOOK'],
     'instagram' => $_ENV['INSTAGRAM'],
     'whastapp' => $_ENV['WHASTAPP'],
+    'tiktok' => $_ENV['TIKTOK'],
     'email' => $_ENV['EMAIL_SITE'],
     'phone' => $_ENV['PHONE'],
   ));

@@ -46,6 +46,7 @@ package-lock.json
 public/build
 public/fonts
 public/vendor
+public/webfonts
 
 error_log
 *.pdf

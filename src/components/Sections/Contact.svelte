@@ -9,6 +9,7 @@
 		<div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
 			<div class="logoarea pt-5 pb-5">
 				<img src="{static_url}assets/img/logo.png" height="135" alt=""><br>
+        <a target="_blank" class="btn btn-outline-light btn-lg" href="{static_url}brochure.pdf">Ver Brochure</a>
         <p class="info">Teléfono<br>
         <a href="tel:{enterpriseData.phone}">{enterpriseData.phone}</a><br>
         Correo<br>
@@ -16,6 +17,7 @@
         <div>
           <a href="{enterpriseData.facebook}" target="_blank" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
           <a href="{enterpriseData.instagram}" target="_blank" class="social"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+          <a href="{enterpriseData.tiktok}" target="_blank" class="social" style="font-size: 17px;"><i class="bi bi-tiktok" aria-hidden="true"></i></a>
           <a href="https://api.whatsapp.com/send?phone={enterpriseData.phone}&text=Consulta%20desde%20la%20web" target="_blank" class="social"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
         </div>
 			</div>
@@ -35,8 +37,10 @@
     }
   }
 
-  .btn-round { 
-    border-radius: 30px;
+  .btn-outline-light { 
+    border-radius: 0px;
+    background: var(--primary);
+    color: white !important;
   }
 
   .bg-left {

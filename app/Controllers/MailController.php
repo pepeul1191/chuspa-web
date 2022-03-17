@@ -16,7 +16,7 @@ class MailController extends BaseController
   function beforeroute($f3) 
   {
     parent::beforeroute($f3);
-    CsrfFormFilter::before($f3);
+    //CsrfFormFilter::before($f3);
     parent::loadHelper('mail');
   }
 
