@@ -8,6 +8,7 @@
 	<div class="col-md-6 p-0 bg-left h-md-100">
 		<div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
 			<div class="logoarea pt-5 pb-5">
+        <h4>Sitio en construcción</h4>
 				<img src="{static_url}assets/img/logo.png" height="135" alt=""><br>
         <a target="_blank" class="btn btn-outline-light btn-lg" href="{static_url}brochure.pdf">Ver Brochure</a>
         <p class="info">Teléfono<br>
@@ -92,5 +93,10 @@
   .logoarea a:hover{
     text-decoration: underline;
     font-weight: 500;
+  }
+
+  h4{
+    color: var(--secondary); /* white */
+    margin-bottom: 35px;
   }
 </style>
