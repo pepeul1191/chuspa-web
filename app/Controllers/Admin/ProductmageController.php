@@ -31,6 +31,7 @@ class ProductImageController extends BaseController
       $rs = \Model::factory('App\\Models\\ProductImage', 'app')
         ->select('id')
         ->select('description')
+        ->select('color')
         ->select('url')
         ->where('product_id', $f3->get('GET.product_id'))
         ->find_array();
@@ -63,6 +64,7 @@ class ProductImageController extends BaseController
 				foreach ($news as &$new) {
 				  $n = \Model::factory('App\\Models\\ProductImage', 'app')->create();
 					$n->description = $new['description'];
+          $n->color = $new['color'];
           $n->url = $new['url'];
           $n->product_id = $product_id;
 					$n->save();
@@ -80,6 +82,7 @@ class ProductImageController extends BaseController
 				foreach ($edits as &$edit) {
           $e = \Model::factory('App\\Models\\ProductImage', 'app')->find_one($edit['id']);
 					$e->description = $edit['description'];
+          $e->color = $edit['color'];
           $e->url = $edit['url'];
 					$e->save();
         }

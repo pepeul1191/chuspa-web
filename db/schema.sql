@@ -67,6 +67,7 @@ CREATE TABLE `products` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `description` text NOT NULL,
+  `color` varchar(6) NOT NULL,
   `url` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -94,6 +95,7 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `product_type_id`,
  1 AS `product_type_name`,
  1 AS `product_id`,
+ 1 AS `color`,
  1 AS `product_name`*/;
 SET character_set_client = @saved_cs_client;
 
@@ -114,7 +116,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vw_product_types_products` AS select `PT`.`id` AS `product_type_id`,`PT`.`name` AS `product_type_name`,`P`.`id` AS `product_id`,`P`.`name` AS `product_name` from ((`products` `P` join `product_types_products` `PTP` on((`PTP`.`product_id` = `P`.`id`))) join `product_types` `PT` on((`PTP`.`product_type_id` = `PT`.`id`))) limit 2000 */;
+/*!50001 VIEW `vw_product_types_products` AS select `PT`.`id` AS `product_type_id`,`PT`.`name` AS `product_type_name`,`P`.`id` AS `product_id`,`P`.`color` AS `color`,`P`.`name` AS `product_name` from ((`products` `P` join `product_types_products` `PTP` on((`PTP`.`product_id` = `P`.`id`))) join `product_types` `PT` on((`PTP`.`product_type_id` = `PT`.`id`))) limit 2000 */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
