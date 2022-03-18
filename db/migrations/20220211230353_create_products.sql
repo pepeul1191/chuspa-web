@@ -1,13 +1,12 @@
 -- migrate:up
 
-CREATE TABLE projects (
+CREATE TABLE products (
 	id	INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  date	DATE NOT NULL,
 	name	VARCHAR(100) NOT NULL,
-  description	VARCHAR(200) NOT NULL,
+  description	TEXT NOT NULL,
   url	VARCHAR(60) NOT NULL
 );
 
 -- migrate:down
 
-DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS products;

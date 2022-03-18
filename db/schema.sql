@@ -10,64 +10,63 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `project_images`
+-- Table structure for table `product_images`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `project_images` (
+CREATE TABLE `product_images` (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(150) NOT NULL,
   `url` varchar(60) NOT NULL,
-  `project_id` int NOT NULL,
+  `product_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `project_id` (`project_id`),
-  CONSTRAINT `project_images_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `project_types`
+-- Table structure for table `product_types`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `project_types` (
+CREATE TABLE `product_types` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `project_types_projects`
+-- Table structure for table `product_types_products`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `project_types_projects` (
+CREATE TABLE `product_types_products` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `project_type_id` int NOT NULL,
-  `project_id` int NOT NULL,
+  `product_type_id` int NOT NULL,
+  `product_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `project_id` (`project_id`),
-  KEY `project_type_id` (`project_type_id`),
-  CONSTRAINT `project_types_projects_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `project_types_projects_ibfk_2` FOREIGN KEY (`project_type_id`) REFERENCES `project_types` (`id`) ON DELETE CASCADE
+  KEY `product_id` (`product_id`),
+  KEY `product_type_id` (`product_type_id`),
+  CONSTRAINT `product_types_products_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `product_types_products_ibfk_2` FOREIGN KEY (`product_type_id`) REFERENCES `product_types` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `projects`
+-- Table structure for table `products`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `projects` (
+CREATE TABLE `products` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` varchar(200) NOT NULL,
+  `description` text NOT NULL,
   `url` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -86,41 +85,27 @@ CREATE TABLE `schema_migrations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `services`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `services` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(25) NOT NULL,
-  `url` varchar(60) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Temporary view structure for view `vw_project_types_projects`
+-- Temporary view structure for view `vw_product_types_products`
 --
 
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vw_project_types_projects` AS SELECT
- 1 AS `project_type_id`,
- 1 AS `project_type_name`,
- 1 AS `project_id`,
- 1 AS `project_name`*/;
+/*!50001 CREATE VIEW `vw_product_types_products` AS SELECT
+ 1 AS `product_type_id`,
+ 1 AS `product_type_name`,
+ 1 AS `product_id`,
+ 1 AS `product_name`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping routines for database 'antergo'
+-- Dumping routines for database 'chuspa'
 --
 
 --
--- Final view structure for view `vw_project_types_projects`
+-- Final view structure for view `vw_product_types_products`
 --
 
-/*!50001 DROP VIEW IF EXISTS `vw_project_types_projects`*/;
+/*!50001 DROP VIEW IF EXISTS `vw_product_types_products`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -129,7 +114,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vw_project_types_projects` AS select `PT`.`id` AS `project_type_id`,`PT`.`name` AS `project_type_name`,`P`.`id` AS `project_id`,`P`.`name` AS `project_name` from ((`projects` `P` join `project_types_projects` `PTP` on((`PTP`.`project_id` = `P`.`id`))) join `project_types` `PT` on((`PTP`.`project_type_id` = `PT`.`id`))) limit 2000 */;
+/*!50001 VIEW `vw_product_types_products` AS select `PT`.`id` AS `product_type_id`,`PT`.`name` AS `product_type_name`,`P`.`id` AS `product_id`,`P`.`name` AS `product_name` from ((`products` `P` join `product_types_products` `PTP` on((`PTP`.`product_id` = `P`.`id`))) join `product_types` `PT` on((`PTP`.`product_type_id` = `PT`.`id`))) limit 2000 */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -152,11 +137,9 @@ SET character_set_client = @saved_cs_client;
 LOCK TABLES `schema_migrations` WRITE;
 INSERT INTO `schema_migrations` (version) VALUES
   ('20220211210442'),
-  ('20220211212904'),
   ('20220211230353'),
   ('20220211230414'),
   ('20220211230433'),
   ('20220212150347'),
-  ('20220216145841'),
-  ('20220216145907');
+  ('20220216145841');
 UNLOCK TABLES;
