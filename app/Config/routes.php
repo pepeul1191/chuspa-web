@@ -9,8 +9,8 @@ $f3->route('GET  /contacto', '\App\Controllers\HomeController->index');
 $f3->route('POST /mail', '\App\Controllers\MailController->mail');
 # api
 $f3->route('GET  /api/service/list', '\App\Controllers\Admin\ApiController->serviceList');
-$f3->route('GET  /api/project_type/list', '\App\Controllers\Admin\ApiController->typesWithProjects');
-$f3->route('GET  /api/service/project', '\App\Controllers\Admin\ApiController->projects');
+$f3->route('GET  /api/product_type/list', '\App\Controllers\Admin\ApiController->typesWithProducts');
+$f3->route('GET  /api/service/product', '\App\Controllers\Admin\ApiController->products');
 #### login
 $f3->route('GET  /login', '\App\Controllers\LoginController->index');
 $f3->route('GET  /login/sign-in', '\App\Controllers\LoginController->index');
@@ -20,27 +20,27 @@ $f3->route('GET  /log-out', '\App\Controllers\LoginController->logout');
 ### admin
 $f3->route('GET  /user/info', '\App\Controllers\AdminController->info');
 $f3->route('GET  /admin', '\App\Controllers\AdminController->index');
-$f3->route('GET  /admin/project-type', '\App\Controllers\AdminController->index');
+$f3->route('GET  /admin/product-type', '\App\Controllers\AdminController->index');
 $f3->route('GET  /admin/service', '\App\Controllers\AdminController->index');
-$f3->route('GET  /admin/project', '\App\Controllers\AdminController->index');
-$f3->route('GET  /admin/project/add', '\App\Controllers\AdminController->index');
-$f3->route('GET  /admin/project/edit/@num', '\App\Controllers\AdminController->index');
-### admin - project-type
-$f3->route('GET  /admin/project-type/list', '\App\Controllers\Admin\ProjectTypeController->list');
-$f3->route('POST /admin/project-type/save', '\App\Controllers\Admin\ProjectTypeController->save');
+$f3->route('GET  /admin/product', '\App\Controllers\AdminController->index');
+$f3->route('GET  /admin/product/add', '\App\Controllers\AdminController->index');
+$f3->route('GET  /admin/product/edit/@num', '\App\Controllers\AdminController->index');
+### admin - product-type
+$f3->route('GET  /admin/product-type/list', '\App\Controllers\Admin\ProductTypeController->list');
+$f3->route('POST /admin/product-type/save', '\App\Controllers\Admin\ProductTypeController->save');
 ### admin - service
 $f3->route('GET  /admin/service/list', '\App\Controllers\Admin\ServiceController->list');
 $f3->route('POST /admin/service/save', '\App\Controllers\Admin\ServiceController->save');
-### admin - project
-$f3->route('GET  /admin/project/list', '\App\Controllers\Admin\ProjectController->list');
-$f3->route('GET  /admin/project/project-type', '\App\Controllers\Admin\ProjectController->projectType');
-$f3->route('POST /admin/project/detail/save', '\App\Controllers\Admin\ProjectController->save');
-$f3->route('POST /admin/project/delete', '\App\Controllers\Admin\ProjectController->delete');
-$f3->route('POST /admin/project/type/save', '\App\Controllers\Admin\ProjectController->projectTypeSave');
-$f3->route('GET  /admin/project/get', '\App\Controllers\Admin\ProjectController->get');
-### admin - project_image
-$f3->route('GET  /admin/project/image/list', '\App\Controllers\Admin\ProjectImageController->list');
-$f3->route('POST /admin/project/image/save', '\App\Controllers\Admin\ProjectImageController->save');
+### admin - product
+$f3->route('GET  /admin/product/list', '\App\Controllers\Admin\ProductController->list');
+$f3->route('GET  /admin/product/product-type', '\App\Controllers\Admin\ProductController->productType');
+$f3->route('POST /admin/product/detail/save', '\App\Controllers\Admin\ProductController->save');
+$f3->route('POST /admin/product/delete', '\App\Controllers\Admin\ProductController->delete');
+$f3->route('POST /admin/product/type/save', '\App\Controllers\Admin\ProductController->productTypeSave');
+$f3->route('GET  /admin/product/get', '\App\Controllers\Admin\ProductController->get');
+### admin - product_image
+$f3->route('GET  /admin/product/image/list', '\App\Controllers\Admin\ProductImageController->list');
+$f3->route('POST /admin/product/image/save', '\App\Controllers\Admin\ProductImageController->save');
 #### rest - file
 $f3->route('POST /upload', '\App\Controllers\FileController->upload');
 # error handler

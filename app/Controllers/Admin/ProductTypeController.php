@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Filters\SessionTrueApiFilter;
 use App\Filters\CsrfApiFilter;
 
-class ProjectTypeController extends BaseController
+class ProductTypeController extends BaseController
 {
   function __construct()
   {
@@ -28,7 +28,7 @@ class ProjectTypeController extends BaseController
     $status = 200;
     // logic
     try {
-      $rs = \Model::factory('App\\Models\\ProjectType', 'app')
+      $rs = \Model::factory('App\\Models\\ProductType', 'app')
         ->find_array();
       $resp = json_encode($rs);
     }catch (\Exception $e) {
@@ -56,7 +56,7 @@ class ProjectTypeController extends BaseController
       // news
       if(count($news) > 0){
 				foreach ($news as &$new) {
-				  $n = \Model::factory('App\\Models\\ProjectType', 'app')->create();
+				  $n = \Model::factory('App\\Models\\ProductType', 'app')->create();
 					$n->name = $new['name'];
 					$n->save();
 				  $temp = [];
@@ -71,7 +71,7 @@ class ProjectTypeController extends BaseController
       // edits
       if(count($edits) > 0){
 				foreach ($edits as &$edit) {
-          $e = \Model::factory('App\\Models\\ProjectType', 'app')->find_one($edit['id']);
+          $e = \Model::factory('App\\Models\\ProductType', 'app')->find_one($edit['id']);
 					$e->name = $edit['name'];
 					$e->save();
         }
@@ -79,7 +79,7 @@ class ProjectTypeController extends BaseController
       // deletes
       if(count($deletes) > 0){
 				foreach ($deletes as &$delete) {
-			    $d = \Model::factory('App\\Models\\ProjectType', 'app')->find_one($delete['id']);
+			    $d = \Model::factory('App\\Models\\ProductType', 'app')->find_one($delete['id']);
 			    $d->delete();
 				}
       }

@@ -18,37 +18,18 @@ class ApiController extends BaseController
     parent::beforeroute($f3);
     ApiFilter::before($f3);
   }
-
-  function serviceList($f3)
+  
+  function typesWithProducts($f3)
   {
     // data
     $resp = [];
     $status = 200;
     // logic
     try {
-      $rs = \Model::factory('App\\Models\\Service', 'app')
-        ->find_array();
-      $resp = json_encode($rs);
-    }catch (\Exception $e) {
-      $status = 500;
-      $resp = json_encode(['ups', $e->getMessage()]);
-    }
-    // resp
-    http_response_code($status);
-    echo $resp;
-  }
-
-  function typesWithProjects($f3)
-  {
-    // data
-    $resp = [];
-    $status = 200;
-    // logic
-    try {
-      $rs = \Model::factory('App\\Models\\VWProjectTypeProject', 'app')
-        ->select('project_type_id', 'id')
-        ->select('project_type_name', 'name')
-        ->group_by('project_type_id')
+      $rs = \Model::factory('App\\Models\\VWProductTypeProduct', 'app')
+        ->select('product_type_id', 'id')
+        ->select('product_type_name', 'name')
+        ->group_by('product_type_id')
         ->order_by_asc('id')
         ->find_array();
       $resp = json_encode($rs);
@@ -61,15 +42,15 @@ class ApiController extends BaseController
     echo $resp;
   }
 
-  private function addProjectTypes($record)
+  private function addProductTypes($record)
   {
     try {
-      $rs = \Model::factory('App\\Models\\VWProjectTypeProject', 'app')
-        ->select('project_type_id', 'id')
-        ->select('project_type_name', 'name')
-        ->where('project_id', $record['id'])
+      $rs = \Model::factory('App\\Models\\VWProductTypeProduct', 'app')
+        ->select('product_type_id', 'id')
+        ->select('product_type_name', 'name')
+        ->where('product_id', $record['id'])
         ->find_array();
-      $record['project_types'] = $rs;
+      $record['product_types'] = $rs;
     }catch (\Exception $e) {
       $status = 500;
       $resp = json_encode(['ups', $e->getMessage()]);
@@ -77,13 +58,13 @@ class ApiController extends BaseController
     return $record;
   }
 
-  private function addProjectImages($record)
+  private function addProductImages($record)
   {
     try {
-      $rs = \Model::factory('App\\Models\\ProjectImage', 'app')
+      $rs = \Model::factory('App\\Models\\ProductImage', 'app')
         ->select('description')
         ->select('url')
-        ->where('project_id', $record['id'])
+        ->where('product_id', $record['id'])
         ->find_array();
       $record['images'] = $rs;
     }catch (\Exception $e) {
@@ -93,7 +74,7 @@ class ApiController extends BaseController
     return $record;
   }
 
-  function projects($f3)
+  function products($f3)
   {
     // data
     $resp = [];
@@ -101,10 +82,10 @@ class ApiController extends BaseController
     // logic
     try {
       $rs = [];
-      $rs = \Model::factory('App\\Models\\Project', 'app')
+      $rs = \Model::factory('App\\Models\\Product', 'app')
         ->find_array();
-      $rs = array_map(array($this, 'addProjectTypes'), $rs);
-      $rs = array_map(array($this, 'addProjectImages'), $rs);
+      $rs = array_map(array($this, 'addProductTypes'), $rs);
+      $rs = array_map(array($this, 'addProductImages'), $rs);
       $resp = json_encode($rs);
     }catch (\Exception $e) {
       $status = 500;

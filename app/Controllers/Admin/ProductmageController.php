@@ -4,9 +4,9 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Filters\SessionTrueApiFilter;
-use App\Filters\CsrfApiFilter;
+use App\Libraries\RandomLib;
 
-class ServiceController extends BaseController
+class ProductImageController extends BaseController
 {
   function __construct()
   {
@@ -28,7 +28,11 @@ class ServiceController extends BaseController
     $status = 200;
     // logic
     try {
-      $rs = \Model::factory('App\\Models\\Service', 'app')
+      $rs = \Model::factory('App\\Models\\ProductImage', 'app')
+        ->select('id')
+        ->select('description')
+        ->select('url')
+        ->where('product_id', $f3->get('GET.product_id'))
         ->find_array();
       $resp = json_encode($rs);
     }catch (\Exception $e) {
@@ -50,18 +54,17 @@ class ServiceController extends BaseController
     $news = $payload['news'];
 		$edits = $payload['edits'];
     $deletes = $payload['deletes'];
+    $product_id = $payload['extra']['product_id'];
     // logic
     \ORM::get_db('app')->beginTransaction();
     try {
       // news
       if(count($news) > 0){
 				foreach ($news as &$new) {
-          if ($new['url'] == 'E'){
-            $new['url'] = 'assets/img/default-service.png';
-          }
-				  $n = \Model::factory('App\\Models\\Service', 'app')->create();
-					$n->name = $new['name'];
+				  $n = \Model::factory('App\\Models\\ProductImage', 'app')->create();
+					$n->description = $new['description'];
           $n->url = $new['url'];
+          $n->product_id = $product_id;
 					$n->save();
 				  $temp = [];
 				  $temp['tempId'] = $new['id'];
@@ -75,8 +78,8 @@ class ServiceController extends BaseController
       // edits
       if(count($edits) > 0){
 				foreach ($edits as &$edit) {
-          $e = \Model::factory('App\\Models\\Service', 'app')->find_one($edit['id']);
-					$e->name = $edit['name'];
+          $e = \Model::factory('App\\Models\\ProductImage', 'app')->find_one($edit['id']);
+					$e->description = $edit['description'];
           $e->url = $edit['url'];
 					$e->save();
         }
@@ -84,7 +87,7 @@ class ServiceController extends BaseController
       // deletes
       if(count($deletes) > 0){
 				foreach ($deletes as &$delete) {
-			    $d = \Model::factory('App\\Models\\Service', 'app')->find_one($delete['id']);
+			    $d = \Model::factory('App\\Models\\ProductImage', 'app')->find_one($delete['id']);
 			    $d->delete();
 				}
       }

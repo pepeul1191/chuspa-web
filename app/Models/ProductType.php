@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-class Project extends \Model
+class ProductType extends \Model
 {
-	public static $_table = 'projects';
+	public static $_table = 'product_types';
 	public static $_connection_name = 'app';
 }

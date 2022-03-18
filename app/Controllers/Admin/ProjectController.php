@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Filters\SessionTrueApiFilter;
 use App\Libraries\RandomLib;
 
-class ProjectController extends BaseController
+class ProductController extends BaseController
 {
   function __construct()
   {
@@ -28,9 +28,8 @@ class ProjectController extends BaseController
     $status = 200;
     // logic
     try {
-      $stmt = \Model::factory('App\\Models\\Project', 'app')
+      $stmt = \Model::factory('App\\Models\\Product', 'app')
         ->select('id')
-        ->select('date')
         ->select('name');
       // filter user
       if(
@@ -76,8 +75,7 @@ class ProjectController extends BaseController
     \ORM::get_db('app')->beginTransaction();
     try {
       if($payload['id'] == 'E'){
-        $n = \Model::factory('App\\Models\\Project', 'app')->create();
-        $n->date = $payload['date'];
+        $n = \Model::factory('App\\Models\\Product', 'app')->create();
         $n->name = $payload['name'];
         $n->description = $payload['description'];
         $n->url = $payload['url'];
@@ -85,8 +83,7 @@ class ProjectController extends BaseController
         // response data
         $resp = $n->id;
       }else{
-        $e = \Model::factory('App\\Models\\Project', 'app')->find_one($payload['id']);
-        $e->date = $payload['date'];
+        $e = \Model::factory('App\\Models\\Product', 'app')->find_one($payload['id']);
         $e->name = $payload['name'];
         $e->description = $payload['description'];
         $e->url = $payload['url'];
@@ -104,31 +101,31 @@ class ProjectController extends BaseController
     echo $resp;
   }
 
-  function projectType($f3)
+  function productType($f3)
   {
     // data
     $resp = [];
     $status = 200;
-    $project_id = $f3->get('GET.project_id');
+    $product_id = $f3->get('GET.product_id');
     // logic
     try {
       $pdo = \ORM::get_db('app');
       $query = '
         SELECT T.id AS id, T.name AS name, (CASE WHEN (P.exist = 1) THEN 1 ELSE 0 END) AS exist FROM
         (
-          SELECT id, name, 0 AS exist FROM project_types
+          SELECT id, name, 0 AS exist FROM product_types
         ) T 
         LEFT JOIN 
         (
           SELECT PT.id, PT.name, 1 AS exist FROM 
-          project_types PT INNER JOIN project_types_projects PTP ON
-          PT.id = PTP.project_type_id
-          WHERE PTP.project_id = %d
+          product_types PT INNER JOIN product_types_products PTP ON
+          PT.id = PTP.product_type_id
+          WHERE PTP.product_id = %d
         ) P 
         ON P.id = T.id
       ';
       $rs = array();
-      foreach($pdo->query(sprintf($query, $project_id)) as $row) {
+      foreach($pdo->query(sprintf($query, $product_id)) as $row) {
         array_push($rs, array(
           'id' => $row['id'],
           'name' => $row['name'],
@@ -136,7 +133,7 @@ class ProjectController extends BaseController
         ));
       }
       if($rs == false){
-        $resp = 'Parcipante no tiene tipos de proyecto asociado';
+        $resp = 'Parcipante no tiene tipos de producto asociado';
         $status = 404;
       }else{
         $resp = json_encode($rs);
@@ -150,24 +147,24 @@ class ProjectController extends BaseController
     echo $resp;
   }
 
-  function projectTypeSave($f3)
+  function productTypeSave($f3)
   {
     // data
     $resp = '';
     $status = 200;
     $payload = json_decode(file_get_contents('php://input'));
     $data = $payload->{'data'};
-    $project_id = $payload->{'id'};
+    $product_id = $payload->{'id'};
     // logic
     \ORM::get_db('app')->beginTransaction();
     try {
       if(count($data) > 0){
 				foreach ($data as &$record) {
-          $project_type_id = $record->{'id'};
+          $product_type_id = $record->{'id'};
           $exist = $record->{'exist'};
-          $e = \Model::factory('App\\Models\\ProjectTypeProject', 'app')
-            ->where('project_type_id', $project_type_id)
-            ->where('project_id', $project_id)
+          $e = \Model::factory('App\\Models\\ProductTypeProduct', 'app')
+            ->where('product_type_id', $product_type_id)
+            ->where('product_id', $product_id)
             ->find_one();
           if($exist == 0){
             if($e != false){
@@ -175,9 +172,9 @@ class ProjectController extends BaseController
             }
           }else{
             if($e == false){
-              $n = \Model::factory('App\\Models\\ProjectTypeProject', 'app')->create();
-              $n->project_type_id = $project_type_id;
-              $n->project_id = $project_id;
+              $n = \Model::factory('App\\Models\\ProductTypeProduct', 'app')->create();
+              $n->product_type_id = $product_type_id;
+              $n->product_id = $product_id;
               $n->save();
             }
           }
@@ -202,12 +199,11 @@ class ProjectController extends BaseController
     $id = $f3->get('GET.id');
     // logic
     try {
-      $r = \Model::factory('App\\Models\\Project', 'app')->find_one($id);
+      $r = \Model::factory('App\\Models\\Product', 'app')->find_one($id);
       $resp = json_encode(array(
         'id' => $r->{'id'},
         'name' => $r->{'name'},
         'description' => $r->{'description'},
-        'date' => $r->{'date'},
         'url' => $r->{'url'},
       ));
     }catch (\Exception $e) {
@@ -233,15 +229,15 @@ class ProjectController extends BaseController
       // deletes
       if(count($deletes) > 0){
 				foreach ($deletes as &$delete) {
-          // delete ProjectTypeProject
-          $typesProject = \Model::factory('App\\Models\\ProjectTypeProject', 'app')
-            ->where('project_id', $delete['id'])
+          // delete ProductTypeProduct
+          $typesProduct = \Model::factory('App\\Models\\ProductTypeProduct', 'app')
+            ->where('product_id', $delete['id'])
             ->find_many();
-          foreach ($typesProject as &$tp) {
+          foreach ($typesProduct as &$tp) {
             $tp->delete();
           }
-          // delete Project
-			    $d = \Model::factory('App\\Models\\Project', 'app')->find_one($delete['id']);
+          // delete Product
+			    $d = \Model::factory('App\\Models\\Product', 'app')->find_one($delete['id']);
 			    $d->delete();
 				}
       }
