@@ -11,10 +11,10 @@
 		items = [
 			{name: 'Home', url: '/admin', active: true, items: []}, 
 			{name: 'Datos Maestros', url: '#', active: true, items: [
-				{name: 'Tipos de Proyecto', url: '/admin/project-type', active: true}, 
+				{name: 'Tipos de Productos', url: '/admin/product-type', active: true}, 
 			]}, 
-			{name: 'Servicios', url: '/admin/service', active: true, items: []}, 
-			{name: 'Proyectos', url: '/admin/project', active: true, items: []}, 
+			//{name: 'Servicios', url: '/admin/service', active: true, items: []}, 
+			{name: 'Productos', url: '/admin/product', active: true, items: []}, 
 		];
 		getUserInfo();
 	});  

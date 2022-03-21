@@ -4,14 +4,12 @@
   import jQuery from 'jquery';
   import Contact from '../Sections/Contact.svelte';
   import DevelopedBy from '../Sections/DevelopedBy.svelte';
-  /*
   import Nav from '../Sections/Nav.svelte';
   import Header from '../Sections/Header.svelte';
   import Spinner from '../Sections/Spinner.svelte';
   import About from '../Sections/About.svelte';
   import Services from '../Sections/Services.svelte';
   import Projects from '../Sections/Projects.svelte';
-  */
   import { changeNav } from '../Stores/changeNav.js'
   
   let enterpriseData = ENTERPRISE_DATA;
@@ -69,6 +67,12 @@
 </script>
 
 <div class="container-xxl bg-white p-0">
+  <Spinner />
+  <Nav page={myPage}/>
+  <Header />
+  <About />
+  <Services />
+  <Projects />
   <Contact /> 
   <DevelopedBy />
 </div>

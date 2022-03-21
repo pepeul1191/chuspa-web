@@ -6,9 +6,9 @@
 	import { onMount } from 'svelte';
 	import { Router, Route } from 'svelte-routing';
   import Index from '../Pages/Admin/Index.svelte';
-  import ProjectType from '../Pages/Admin/ProjectType.svelte';
-  import Project from '../Pages/Admin/Project.svelte';
-  import ProjectDetail from '../Pages/Admin/ProjectDetail.svelte';
+  import ProductType from '../Pages/Admin/ProductType.svelte';
+  import Product from '../Pages/Admin/Product.svelte';
+  import ProductDetail from '../Pages/Admin/ProductDetail.svelte';
   import Service from '../Pages/Admin/Service.svelte';
 	import Redirect404 from '../Pages/Error/Redirect404.svelte';
   import Footer from './../Widgets/Footer.svelte';
@@ -61,12 +61,12 @@
 
 <Router url="{url}" basepath="{basepath}">
   <div>
-    <Route path="/" component="{Project}" />
-    <Route path="/project-type" component="{ProjectType}" />
+    <Route path="/" component="{Product}" />
+    <Route path="/product-type" component="{ProductType}" />
     <Route path="/service" component="{Service}" />
-    <Route path="/project" component="{Project}" />
-    <Route path="/project/add" component="{ProjectDetail}" />
-    <Route path="/project/edit/:id" let:params><ProjectDetail id={params.id}/></Route>
+    <Route path="/product" component="{Product}" />
+    <Route path="/product/add" component="{ProductDetail}" />
+    <Route path="/product/edit/:id" let:params><ProductDetail id={params.id}/></Route>
     <Route path="/*" component="{Redirect404}" />
   </div>
 </Router>

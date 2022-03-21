@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const getProjectById = (id) => {
+export const getProductById = (id) => {
   return new Promise((resolve, reject) => {
-    axios.get('admin/project/get', {
+    axios.get('admin/product/get', {
       params: {id: id}
     }).then(function (response) {
       resolve(response);
@@ -20,9 +20,9 @@ export const getProjectById = (id) => {
   });
 }
 
-export const saveProjectDetail = (params) => {
+export const saveProductDetail = (params) => {
   return new Promise((resolve, reject) => {
-    axios.post('admin/project/detail/save', JSON.stringify(params), {
+    axios.post('admin/product/detail/save', JSON.stringify(params), {
       headers: {
         'Content-Type': 'application/json',
       }
@@ -42,9 +42,9 @@ export const saveProjectDetail = (params) => {
   });
 }
 
-export const saveProjectTypes = (params) => {
+export const saveProductTypes = (params) => {
   return new Promise((resolve, reject) => {
-    axios.post('admin/project/type/save', JSON.stringify(params), {
+    axios.post('admin/product/type/save', JSON.stringify(params), {
       headers: {
         'Content-Type': 'application/json',
       }

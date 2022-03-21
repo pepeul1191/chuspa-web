@@ -51,7 +51,7 @@
   <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
     <a href="/" class="navbar-brand d-flex align-items-center text-center">
       <div class="icon p-2 me-2">
-        <img class="img-fluid" src="{static_url}assets/img/logo-nav.png" alt="Icon" style="width: 170px; height: 48px;">
+        <img class="img-fluid" src="{static_url}assets/img/logo-nav.png" alt="Icon" style="width: 192px; height: 48px;">
       </div>
     </a>
     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" on:click|preventDefault={(event)=>collapse(event)}>

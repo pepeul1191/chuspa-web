@@ -20,6 +20,7 @@ CREATE TABLE `product_images` (
   `description` varchar(150) NOT NULL,
   `url` varchar(60) NOT NULL,
   `product_id` int NOT NULL,
+  `color` varchar(6) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
@@ -143,5 +144,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20220211230414'),
   ('20220211230433'),
   ('20220212150347'),
-  ('20220216145841');
+  ('20220216145841'),
+  ('20220321003100');
 UNLOCK TABLES;

@@ -3,15 +3,14 @@
   import DataTable from '../../Widgets/DataTable.svelte';
   import UploadFile from '../../Widgets/UploadFile.svelte';
   import InputText from '../../Widgets/InputText.svelte';
-  import InputDate from '../../Widgets/InputDate.svelte';
   import AlertMessage from '../../Widgets/AlertMessage.svelte';
   import InputCheckGroup from '../../Widgets/InputCheckGroup.svelte';
   import { alertMessage as alertMessageStore} from '../../Stores/alertMessage.js';
-  import { getProjectById, saveProjectDetail, saveProjectTypes } from '../../../services/project_service.js';
+  import { getProductById, saveProductDetail, saveProductTypes } from '../../../services/product_service.js';
   export let id;
   export let disabled = false;
-  export let disabledProjectType = false;
-  let projectCheckGroup;
+  export let disabledProductType = false;
+  let productCheckGroup;
   let baseURL = BASE_URL;
   let staticURL = STATIC_URL;
   let imagesDataTable;
@@ -20,7 +19,7 @@
   let alertMessageProps = {};
   let imageURL = 'E';
   let imageUploadFile = '';
-  let date = ''; let inputDate; let dateValid = false;
+  let color = '343434'; let inputColor; let colorValid = false;
   let name = ''; let inputName; let nameValid = false;
   let description = ''; let inputDescription; let descriptionValid = false;
   
@@ -34,21 +33,21 @@
     // ajax
     if(id === undefined){
       console.log('if')
-      title = 'Crear Proyecto';
+      title = 'Crear Producto';
       id = 'E';
-      disabledProjectType = true;
+      disabledProductType = true;
     }else{
       console.log('else')
-      title = 'Editar Proyecto';
+      title = 'Editar Producto';
       loadDetail(id);
-      disabledProjectType = false;
+      disabledProductType = false;
     }
-    projectCheckGroup.url = `${baseURL}admin/project/project-type?project_id=${id}`;
-    projectCheckGroup.list();
+    productCheckGroup.url = `${baseURL}admin/product/product-type?product_id=${id}`;
+    productCheckGroup.list();
     // image table
-    imagesDataTable.urlServices.list = `${baseURL}admin/project/image/list?project_id=${id}`;
+    imagesDataTable.urlServices.list = `${baseURL}admin/product/image/list?product_id=${id}`;
     imagesDataTable.list();
-    imagesDataTable.extraData.project_id = id;
+    imagesDataTable.extraData.product_id = id;
   });
 
   const launchAlert = (event, message, type) => {
@@ -63,58 +62,58 @@
 
   const saveDetail = () => {
     // run validations
-    inputDate.validate();
+    inputColor.validate();
     inputName.validate();
     inputDescription.validate();
     // check image url
     if(imageURL == 'E'){
-      imageURL = 'assets/img/default-project.png'
+      imageURL = 'assets/img/default-product.png'
     }
     // check if true
-    if(dateValid && nameValid && descriptionValid) {
+    if(colorValid && nameValid && descriptionValid) {
       var params = {
         id: id,
-        date: date,
+        color: color,
         name: name,
         description: description,
         url: imageURL,
       };
-      saveProjectDetail(params).then((resp) => {
+      saveProductDetail(params).then((resp) => {
         var data = resp.data;
         if(data != ''){
           id = data;
-          title = 'Editar Usuario';
-          launchAlert(null, 'Se ha creado un nuevo usuario', 'success');
-          disabledProjectType = false;
-          imagesDataTable.extraData.project_id = data;
+          title = 'Editar Producto';
+          launchAlert(null, 'Se ha creado un nuevo producto', 'success');
+          disabledProductType = false;
+          imagesDataTable.extraData.product_id = data;
         }else{
-          launchAlert(null, 'Se ha editado un usuario', 'success');
+          launchAlert(null, 'Se ha editado un producto', 'success');
         }
       }).catch((resp) =>  {
         if(resp.status == 404){
-          launchAlert(null, 'Recurso guardar detalle de usuario no existe en el servidor', 'danger');
+          launchAlert(null, 'Recurso guardar detalle de producto no existe en el servidor', 'danger');
         }else if(resp.status == 501){ 
           launchAlert(null, resp.data, 'danger');
         }else { 
-          launchAlert(null, 'Ocurrió un error en guardar los datos del usuario', 'danger');
+          launchAlert(null, 'Ocurrió un error en guardar los datos del producto', 'danger');
         }
       })
     }
   };
 
   const loadDetail = (id) => {
-    getProjectById(id).then((resp) => {
+    getProductById(id).then((resp) => {
       var data = resp.data;
-      date = data.date;
+      color = data.color;
       name = data.name;
       description = data.description;
       imageURL = data.url;
     }).catch((resp) =>  {
       disabled = true;
       if(resp.status == 404){
-        launchAlert(null, 'Proyecto a editar no existe', 'warning');
+        launchAlert(null, 'Producto a editar no existe', 'warning');
       }else{
-        launchAlert(null, 'Ocurrió un error en obtener los datos del proyecto', 'danger');
+        launchAlert(null, 'Ocurrió un error en obtener los datos del producto', 'danger');
       }
     })
   };
@@ -123,9 +122,9 @@
     if(id != 'E'){
       var params = {
         id: id,
-        data: projectCheckGroup.data,
+        data: productCheckGroup.data,
       };
-      saveProjectTypes(params).then((resp) => {
+      saveProductTypes(params).then((resp) => {
         var data = resp.data;
         console.log(resp.data)
         if(data == ''){
@@ -157,26 +156,26 @@
   </div>
   <div class="row">
     <div class="col-md-2">
-      <InputDate 
-        label={'Fecha'}
-        bind:value={date}
-        placeholder={'Nombre del proyecto'} 
+      <InputText 
+        label={'Color(hex)'}
+        bind:value={color}
+        placeholder={'Color default del producto'} 
         disabled={disabled}
         validations={[
-          {type:'notEmpty', message: 'Debe de ingresar una fecha del proyecto'},
+          {type:'notEmpty', message: 'Debe de ingresar un color'},
         ]}
-        bind:valid={dateValid} 
-        bind:this={inputDate}
+        bind:valid={colorValid} 
+        bind:this={inputColor}
       />
     </div>
     <div class="col-md-7">
       <InputText 
         label={'Nombre'}
         bind:value={name}
-        placeholder={'Nombre del proyecto'} 
+        placeholder={'Nombre del producto'} 
         disabled={disabled}
         validations={[
-          {type:'notEmpty', message: 'Debe de ingresar un nombre proyecto'},
+          {type:'notEmpty', message: 'Debe de ingresar un nombre producto'},
           {type:'maxLength', length: 100, message: 'Nombre máximo 100 letras'},
         ]}
         bind:valid={nameValid} 
@@ -207,10 +206,10 @@
       <InputText 
         label={'Descripción'}
         bind:value={description}
-        placeholder={'Descripción del proyecto'} 
+        placeholder={'Descripción del producto'} 
         disabled={disabled}
         validations={[
-          {type:'notEmpty', message: 'Debe de ingresar una descripción del proyecto'},
+          {type:'notEmpty', message: 'Debe de ingresar una descripción del producto'},
           {type:'maxLength', length: 200, message: 'Nombre máximo 200 letras'},
         ]}
         bind:valid={descriptionValid} 
@@ -227,17 +226,17 @@
   <hr>
   <div class="row">
     <div class="col-md-9">
-      <InputCheckGroup bind:this={projectCheckGroup} 
-        url={`${baseURL}admin/project/project-type`}
+      <InputCheckGroup bind:this={productCheckGroup} 
+        url={`${baseURL}admin/product/product-type`}
         key = {{ id: 'id', name: 'name', exist: 'exist' }}
         inline = {true}
-        label = {'Seleccionar el Tipo(s) de Proyecto'}
-        disabled = {disabledProjectType}
+        label = {'Seleccionar el Tipo(s) de Producto'}
+        disabled = {disabledProductType}
       />
     </div>
     <div class="col-md-3 pull-right">
-      <button class="btn btn-primary btn-actions" style="margin-top: 35px;" disabled="{disabledProjectType}" on:click="{saveTypes}"><i class="fa fa-list" aria-hidden="true"></i>
-        Asosiar Tipo de Proyecto</button>
+      <button class="btn btn-primary btn-actions" style="margin-top: 35px;" disabled="{disabledProductType}" on:click="{saveTypes}"><i class="fa fa-list" aria-hidden="true"></i>
+        Asosiar Tipo de Producto</button>
     </div>
   </div>
   <hr>
@@ -247,8 +246,8 @@
       <h6>Galería de Imágenes</h6>
       <DataTable bind:this={imagesDataTable} 
 				urlServices={{ 
-					list: `${baseURL}admin/project/image/list`, 
-					save: `${baseURL}admin/project/image/save` 
+					list: `${baseURL}admin/product/image/list`, 
+					save: `${baseURL}admin/product/image/save` 
 				}}
 				buttonSave={true},
         buttonAddRow={true},
@@ -258,6 +257,9 @@
 						type: 'id',
 					},
 					description:{
+						type: 'input[text]',
+					},
+          color:{
 						type: 'input[text]',
 					},
           url:{
@@ -285,7 +287,10 @@
 						caption: 'Descripción',
 					},
           {
-						caption: 'Imágenes del Proyecto',
+						caption: 'Color',
+					},
+          {
+						caption: 'Imágenes del Producto',
             style: 'text-align: center',
 					},
           {
@@ -294,14 +299,14 @@
 					},
 				]}
 				messages={{
-					notChanges: 'No ha ejecutado cambios en la tabla de imágenes del proyecto',
-					list404: 'Rercuso no encontrado para listar los elmentos de la tabla de imágenes del proyecto',
-					list500: 'Ocurrió un error en listar los elementos de la tabla de imágenes del proyecto',
-					save404: 'Rercuso no encontrado para guardar los cambios de la tabla de imágenes del proyecto',
-					save500: 'Ocurrió un error para guardar los cambios de la table de imágenes del proyecto',
-					save200: 'Se han actualizado los registros de la tabla de imágenes del proyecto',
+					notChanges: 'No ha ejecutado cambios en la tabla de imágenes del producto',
+					list404: 'Rercuso no encontrado para listar los elmentos de la tabla de imágenes del producto',
+					list500: 'Ocurrió un error en listar los elementos de la tabla de imágenes del producto',
+					save404: 'Rercuso no encontrado para guardar los cambios de la tabla de imágenes del producto',
+					save500: 'Ocurrió un error para guardar los cambios de la table de imágenes del producto',
+					save200: 'Se han actualizado los registros de la tabla de imágenes del producto',
 				}}
-        disabled={disabledProjectType}
+        disabled={disabledProductType}
 			/>
     </div>
   </div>

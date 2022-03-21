@@ -52,7 +52,7 @@ class LoginController extends BaseController
       $_SESSION['csrfValue'] = \App\Libraries\RandomLib::lowerStringNumber(30);
       $_SESSION['status'] = 'active';
       $_SESSION['user'] = $user;
-      $_SESSION['name'] = 'Antergo Design';
+      $_SESSION['name'] = 'Chuspa Perú';
       $_SESSION['img'] = $f3->get('staticURL') . 'assets/img/default-user.png';
       $_SESSION['time'] = date('Y-m-d H:i:s');
       $f3->reroute('/admin');

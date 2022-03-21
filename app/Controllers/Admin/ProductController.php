@@ -30,6 +30,7 @@ class ProductController extends BaseController
     try {
       $stmt = \Model::factory('App\\Models\\Product', 'app')
         ->select('id')
+        ->select('color')
         ->select('name');
       // filter user
       if(
@@ -79,6 +80,7 @@ class ProductController extends BaseController
         $n->name = $payload['name'];
         $n->description = $payload['description'];
         $n->url = $payload['url'];
+        $n->color = $payload['color'];
         $n->save();
         // response data
         $resp = $n->id;
@@ -87,6 +89,7 @@ class ProductController extends BaseController
         $e->name = $payload['name'];
         $e->description = $payload['description'];
         $e->url = $payload['url'];
+        $e->color = $payload['color'];
         $e->save();
         $resp = '';
       }
@@ -205,6 +208,7 @@ class ProductController extends BaseController
         'name' => $r->{'name'},
         'description' => $r->{'description'},
         'url' => $r->{'url'},
+        'color' => $r->{'color'},
       ));
     }catch (\Exception $e) {
       $status = 500;
