@@ -96,6 +96,21 @@
           valid = true;
         }
       }
+      if(validation.type == 'floatNumber' && valid == true){
+        if(!isNaN(parseFloat(value)) == false){
+          var message = `Fomato de decimal y flotante inválido`;
+          if (typeof validation.message !== 'undefined'){
+            message = validation.message;
+          }
+          validationMessage = message;
+          valid = false;
+          validationMessageClass = 'text-danger';
+        }else{
+          validationMessage = '';
+          validationMessageClass = '';
+          valid = true;
+        }
+      }
     });
   };
 </script>

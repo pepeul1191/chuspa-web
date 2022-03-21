@@ -81,6 +81,7 @@ class ProductController extends BaseController
         $n->description = $payload['description'];
         $n->url = $payload['url'];
         $n->color = $payload['color'];
+        $n->price = $payload['price'];
         $n->save();
         // response data
         $resp = $n->id;
@@ -90,6 +91,7 @@ class ProductController extends BaseController
         $e->description = $payload['description'];
         $e->url = $payload['url'];
         $e->color = $payload['color'];
+        $e->price = $payload['price'];
         $e->save();
         $resp = '';
       }
@@ -208,6 +210,7 @@ class ProductController extends BaseController
         'name' => $r->{'name'},
         'description' => $r->{'description'},
         'url' => $r->{'url'},
+        'price' => $r->{'price'},
         'color' => $r->{'color'},
       ));
     }catch (\Exception $e) {

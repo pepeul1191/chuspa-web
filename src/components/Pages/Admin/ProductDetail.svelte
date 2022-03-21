@@ -20,6 +20,7 @@
   let imageURL = 'E';
   let imageUploadFile = '';
   let color = '343434'; let inputColor; let colorValid = false;
+  let price = ''; let inputPrice; let priceValid = false;
   let name = ''; let inputName; let nameValid = false;
   let description = ''; let inputDescription; let descriptionValid = false;
   
@@ -65,16 +66,18 @@
     inputColor.validate();
     inputName.validate();
     inputDescription.validate();
+    inputPrice.validate();
     // check image url
     if(imageURL == 'E'){
       imageURL = 'assets/img/default-product.png'
     }
     // check if true
-    if(colorValid && nameValid && descriptionValid) {
+    if(colorValid && nameValid && descriptionValid && priceValid) {
       var params = {
         id: id,
         color: color,
         name: name,
+        price: price,
         description: description,
         url: imageURL,
       };
@@ -107,6 +110,7 @@
       color = data.color;
       name = data.name;
       description = data.description;
+      price = data.price;
       imageURL = data.url;
     }).catch((resp) =>  {
       disabled = true;
@@ -168,7 +172,21 @@
         bind:this={inputColor}
       />
     </div>
-    <div class="col-md-7">
+    <div class="col-md-2">
+      <InputText 
+        label={'Precio (S/.)'}
+        bind:value={price}
+        placeholder={'Precio del producto'} 
+        disabled={disabled}
+        validations={[
+          {type:'notEmpty', message: 'Debe de ingresar un precio'},
+          {type:'floatNumber', message: 'Formato inválido, ejemplo: 10.5'},
+        ]}
+        bind:valid={priceValid} 
+        bind:this={inputPrice}
+      />
+    </div>
+    <div class="col-md-5">
       <InputText 
         label={'Nombre'}
         bind:value={name}
