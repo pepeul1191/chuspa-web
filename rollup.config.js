@@ -198,7 +198,7 @@ export default [
 	{
 		input: 'src/entries/admin.js',
 		output: {
-			sourcemap: false,
+			sourcemap: true,
 			format: 'iife',
 			name: 'admin',
 			file: production ? 'public/build/bundle.admin.min.js' : 'public/build/bundle.admin.js', 

@@ -77,3 +77,5 @@ Fuentes:
 + https://stackoverflow.com/questions/25112510/how-to-set-environment-variables-from-within-package-json
 + https://gulpjs.com/docs/en/getting-started/creating-tasks
 + https://www.npmjs.com/package/cross-env
++ https://github.com/kevmodrome/svelte-quill
++ https://svelte.dev/repl/0cc84ebc0b114dd7ab5b20b87bbee486?version=3.19.1

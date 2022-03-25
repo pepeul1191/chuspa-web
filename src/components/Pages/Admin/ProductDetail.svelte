@@ -17,14 +17,25 @@
   let title = '';
   let alertMessage = null;
   let alertMessageProps = {};
+  var descriptionEditor;
   let imageURL = 'E';
   let imageUploadFile = '';
   let color = '343434'; let inputColor; let colorValid = false;
   let price = ''; let inputPrice; let priceValid = false;
   let name = ''; let inputName; let nameValid = false;
   let description = ''; let inputDescription; let descriptionValid = false;
-  
-  onMount(() => {    
+
+  onMount(async () => {
+    //const { default: Quill } = await import("quill");
+    const editorDiv = document.getElementById("descriptionEditor")
+    descriptionEditor = new Quill(editorDiv, 
+      {
+        theme: "snow",
+        placeholder: "Ingrese una descripción"
+      }
+    );
+    console.log(descriptionEditor)
+    // alert
     alertMessageStore.subscribe(value => {
       if(value != null){
         alertMessage = value.component;
@@ -33,12 +44,12 @@
     });
     // ajax
     if(id === undefined){
-      console.log('if')
+      // console.log('if')
       title = 'Crear Producto';
       id = 'E';
       disabledProductType = true;
     }else{
-      console.log('else')
+      // console.log('else')
       title = 'Editar Producto';
       loadDetail(id);
       disabledProductType = false;
@@ -71,6 +82,7 @@
     if(imageURL == 'E'){
       imageURL = 'assets/img/default-product.png'
     }
+    description = (descriptionEditor.root.innerHTML)
     // check if true
     if(colorValid && nameValid && descriptionValid && priceValid) {
       var params = {
@@ -112,6 +124,8 @@
       description = data.description;
       price = data.price;
       imageURL = data.url;
+      // description editor
+      descriptionEditor.root.innerHTML = description;
     }).catch((resp) =>  {
       disabled = true;
       if(resp.status == 404){
@@ -233,6 +247,9 @@
         bind:valid={descriptionValid} 
         bind:this={inputDescription}
       />
+    </div>
+    <div class="col-md-12">
+      <div class="editor" id="descriptionEditor"></div>
     </div>
   </div>
   <div class="row">
