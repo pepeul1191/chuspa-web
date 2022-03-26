@@ -5,6 +5,7 @@
   import InputText from '../../Widgets/InputText.svelte';
   import AlertMessage from '../../Widgets/AlertMessage.svelte';
   import InputCheckGroup from '../../Widgets/InputCheckGroup.svelte';
+  import TextEditor from '../../Widgets/TextEditor.svelte';
   import { alertMessage as alertMessageStore} from '../../Stores/alertMessage.js';
   import { getProductById, saveProductDetail, saveProductTypes } from '../../../services/product_service.js';
   export let id;
@@ -17,7 +18,7 @@
   let title = '';
   let alertMessage = null;
   let alertMessageProps = {};
-  var descriptionEditor;
+  let descriptionEditor;
   let imageURL = 'E';
   let imageUploadFile = '';
   let color = '343434'; let inputColor; let colorValid = false;
@@ -26,15 +27,6 @@
   let description = ''; let inputDescription; let descriptionValid = false;
 
   onMount(async () => {
-    //const { default: Quill } = await import("quill");
-    const editorDiv = document.getElementById("descriptionEditor")
-    descriptionEditor = new Quill(editorDiv, 
-      {
-        theme: "snow",
-        placeholder: "Ingrese una descripción"
-      }
-    );
-    console.log(descriptionEditor)
     // alert
     alertMessageStore.subscribe(value => {
       if(value != null){
@@ -48,6 +40,7 @@
       title = 'Crear Producto';
       id = 'E';
       disabledProductType = true;
+      //descriptionEditor.load(description);
     }else{
       // console.log('else')
       title = 'Editar Producto';
@@ -76,13 +69,13 @@
     // run validations
     inputColor.validate();
     inputName.validate();
-    inputDescription.validate();
     inputPrice.validate();
+    descriptionEditor.validate();
     // check image url
     if(imageURL == 'E'){
       imageURL = 'assets/img/default-product.png'
     }
-    description = (descriptionEditor.root.innerHTML)
+    description = descriptionEditor.getHTML();
     // check if true
     if(colorValid && nameValid && descriptionValid && priceValid) {
       var params = {
@@ -113,6 +106,8 @@
           launchAlert(null, 'Ocurrió un error en guardar los datos del producto', 'danger');
         }
       })
+    }else{
+      launchAlert(null, 'Debe de susandar los errores antes de proseguir', 'danger');
     }
   };
 
@@ -125,7 +120,7 @@
       price = data.price;
       imageURL = data.url;
       // description editor
-      descriptionEditor.root.innerHTML = description;
+      descriptionEditor.load(description);
     }).catch((resp) =>  {
       disabled = true;
       if(resp.status == 404){
@@ -235,25 +230,17 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <InputText 
-        label={'Descripción'}
-        bind:value={description}
-        placeholder={'Descripción del producto'} 
-        disabled={disabled}
-        validations={[
-          {type:'notEmpty', message: 'Debe de ingresar una descripción del producto'},
-          {type:'maxLength', length: 200, message: 'Nombre máximo 200 letras'},
-        ]}
+      <TextEditor 
+        label={'Descripción del Producto'}
         bind:valid={descriptionValid} 
-        bind:this={inputDescription}
+        bind:value={description}
+        validationMessage={'Debe de ingresar una descripción del producto'}
+        bind:this={descriptionEditor}
       />
-    </div>
-    <div class="col-md-12">
-      <div class="editor" id="descriptionEditor"></div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12 pull-right">
+    <div class="col-md-12 pull-right" style="margin-top: 70px;">
       <button class="btn btn-success btn-actions" disabled="{disabled}" on:click="{saveDetail}"><i class="fa fa-check" aria-hidden="true"></i>
         {title}</button>
     </div>

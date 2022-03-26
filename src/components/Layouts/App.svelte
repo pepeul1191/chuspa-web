@@ -67,12 +67,14 @@
 </script>
 
 <div class="container-xxl bg-white p-0">
+  <!--
   <Spinner />
   <Nav page={myPage}/>
   <Header />
   <About />
   <Services />
   <Projects />
+  -->
   <Contact /> 
   <DevelopedBy />
 </div>

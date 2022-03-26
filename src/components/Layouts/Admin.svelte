@@ -1,7 +1,6 @@
 <script>
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import 'font-awesome/css/font-awesome.min.css';
-  import 'quill/dist/quill.snow.css';
 	import '../../stylesheets/admin.css';
   import { Modal } from 'bootstrap';
 	import { onMount } from 'svelte';
