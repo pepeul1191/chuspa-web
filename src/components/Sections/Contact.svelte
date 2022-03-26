@@ -10,7 +10,7 @@
 			<div class="logoarea pt-5 pb-5">
         <h4>Sitio en construcción</h4>
 				<img src="{static_url}assets/img/logo.png" height="135" alt=""><br>
-        <a target="_blank" class="btn btn-outline-light btn-lg" href="{static_url}brochure.pdf">Ver Brochure</a>
+        <a target="_blank" class="btn btn-outline-light btn-lg" href="{static_url}brochure.jgeg">Ver Brochure</a>
         <p class="info">Teléfono<br>
         <a href="tel:{enterpriseData.phone}">{enterpriseData.phone}</a><br>
         Correo<br>
