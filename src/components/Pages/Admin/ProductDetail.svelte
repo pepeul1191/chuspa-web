@@ -234,7 +234,9 @@
         label={'Descripción del Producto'}
         bind:valid={descriptionValid} 
         bind:value={description}
-        validationMessage={'Debe de ingresar una descripción del producto'}
+        validations={[
+          {type:'notEmpty', message: 'Debe de ingresar una descripción del producto'},
+        ]}
         bind:this={descriptionEditor}
       />
     </div>

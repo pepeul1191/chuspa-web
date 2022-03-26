@@ -5,10 +5,11 @@
   import 'quill/dist/quill.snow.css';
   let editor = '';
   let container;
+  export let validations = [];
   export let label = '';
   export let valid = true;
   export let disabled = false;
-  export let validationMessage = 'Debe de ingresar un texto';
+  export let validationMessage = '';
   let randId;
   let validationMessageClass = '';
 
@@ -24,13 +25,30 @@
   };
 
   export const validate = () => {
-    if(editor.getLength() < 2){
-      validationMessage = validation.message;
-      valid = false;
-      validationMessageClass = 'text-danger';
-    }else{
-      valid = true;
-    }
+    validations.forEach(validation => {
+      if(validation.type == 'notEmpty'){
+        // console.log('notEmpty')
+        if(editor.getLength() < 2){
+          var message = 'Este campo debe de estar lleno';
+          if (typeof validation.message !== 'undefined'){
+            message = validation.message;
+          }
+          console.log(container);
+          container.classList.add('border-color-error');
+          container.previousSibling.classList.add('border-color-error-no-bottom');
+          validationMessage = message;
+          valid = false;
+          validationMessageClass = 'text-danger';
+        }else{
+          console.log(container);
+          container.classList.remove('border-color-error');
+          container.previousSibling.classList.remove('border-color-error-no-bottom');
+          validationMessage = '';
+          validationMessageClass = '';
+          valid = true;
+        }
+      }
+    });
   };
 
   export const getHTML = () => {
@@ -40,6 +58,12 @@
 
 <label for="" class="form-label {validationMessageClass}">{label}</label>
 <div id={randId} bind:this={container}></div>
+<small class="{validationMessageClass}">
+  {validationMessage}
+</small>
 
 <style>
+  .border-color-error{
+    border: 1px solid red !important;
+  }
 </style>

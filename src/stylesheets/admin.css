@@ -135,3 +135,15 @@ td{
   border-bottom: 1px solid lightgray;
   padding-bottom: 7px;
 }
+
+/* Quill JS Editor */
+
+.border-color-error{
+  border: 1px solid #dc3545 !important;
+}
+
+.border-color-error-no-bottom{
+  border-left: 1px solid #dc3545 !important;
+  border-right: 1px solid #dc3545 !important;
+  border-top: 1px solid #dc3545 !important;
+}
