@@ -40,7 +40,7 @@
       title = 'Crear Producto';
       id = 'E';
       disabledProductType = true;
-      //descriptionEditor.load(description);
+      descriptionEditor.load('');
     }else{
       // console.log('else')
       title = 'Editar Producto';

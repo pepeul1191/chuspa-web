@@ -4,6 +4,7 @@
   import Quill from 'quill/dist/quill.min.js';
   import 'quill/dist/quill.snow.css';
   let editor = '';
+  let container;
   export let label = '';
   export let valid = true;
   export let disabled = false;
@@ -16,7 +17,7 @@
   });
 
   export const load = (innerHTML) => {
-    editor = new Quill(document.getElementById(randId), {
+    editor = new Quill(container, {
       theme: 'snow',
     });
     editor.root.innerHTML = innerHTML;
@@ -38,7 +39,7 @@
 </script>
 
 <label for="" class="form-label {validationMessageClass}">{label}</label>
-<div id={randId}></div>
+<div id={randId} bind:this={container}></div>
 
 <style>
 </style>
