@@ -46,6 +46,44 @@ Migraciones con DBMATE - accesos/sqlite3:
     EMAIL="proyectos@antergo.pe"
     MESSAGE="En breve uno de nuestros asesores se contactará con usted."
 
+# Flask
+
+Requisitos de software previamente instalado:
+
++ Python >3.5
++ Python PIP
+
+## Pasos para ejecutar la aplicación
+
+Instalar virtualenv en el sistema (Linux y/o Windows):
+
+    $ sudo pip install virtualenv
+
+Crear ambiente virtual en el proyecto (Linux y/o Windows):
+
+    $ virtualenv -p python3 env
+
+Activar el ambiente virtual:
+
+<b>Linux</b>
+
+    $ source env/bin/activate
+
+<b>Windows</b>
+    
+    $ \env\Scripts\activate.bat
+
+Instalar las dependencias:
+
+    $ pip install -r requirements.txt
+  
+Arrancar aplicación:
+
+    # Sin logs ni reload
+    $ gunicorn app:APP -w 6 -b 0.0.0.0:3000
+    # Con logs y reload
+    $ gunicorn app:APP -w 6 -b 0.0.0.0:3000 --reload --access-logfile -
+
 ---
 
 Video Tutorial Diseño

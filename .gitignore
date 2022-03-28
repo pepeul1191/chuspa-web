@@ -50,3 +50,7 @@ public/webfonts
 
 error_log
 *.pdf
+
+*.pyc
+__pycache__
+env/**
