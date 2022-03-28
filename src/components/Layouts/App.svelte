@@ -6,6 +6,7 @@
   import DevelopedBy from '../Sections/DevelopedBy.svelte';
   import Nav from '../Sections/Nav.svelte';
   import Header from '../Sections/Header.svelte';
+  import HeaderVideo from '../Sections/HeaderVideo.svelte';
   import Spinner from '../Sections/Spinner.svelte';
   import About from '../Sections/About.svelte';
   import Services from '../Sections/Services.svelte';
@@ -68,13 +69,15 @@
 
 <div class="container-xxl bg-white p-0">
   <!--
-  <Spinner />
   <Nav page={myPage}/>
   <Header />
-  <About />
   <Services />
   <Projects />
+  <About />
+  <Spinner />
+  <Nav page={myPage}/>
   -->
+  <HeaderVideo />
   <Contact /> 
   <DevelopedBy />
 </div>

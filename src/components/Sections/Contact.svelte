@@ -45,7 +45,7 @@
   }
 
   .bg-left {
-    background: rgba(var(--bs-light-rgb),var(--bs-bg-opacity))!important;/*var(--secondary);*/
+    background: var(--bs-light-rgb-site) !important;/*var(--secondary);*/
   }
 
   .text-cyan { 

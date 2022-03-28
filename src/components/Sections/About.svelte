@@ -3,12 +3,16 @@
   const staticUrl = STATIC_URL;
 </script>
 
-<div class="container-xxl py-5 bg-light" id="about">
+<div class="container-xxl py-5 bg-lightt" id="about">
   <div class="container">
     <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
       <h1 class="mb-3">Nosotros</h1>
-      <p>Somos una empresa peruana de arquitectura y diseño interior, enfocada en atender las necesidades y expectativas de nuestros clientes. <br>Algo que nos distingue:</p>
+      <p>Somos una empresa peruana, creada en el año 2022 viniendo de una necesidad propia al momento de realizar deportes, principalmente en bicicleta, cuando te quedabas sin fuerzas y necesitabas aligerar la carga en los bolsillos y a su vez tener herramientas y agua para poder seguir en el trayecto.</p>
+      <p>Nuestra pasión por el deporte comenzó desde mucho antes, por recomendación del doctor para prevenir el avance de una enfermedad extraña, pero también, ayuda mucho para poder rendir en el día a día.</p>
+      <p>Los animamos en transportarse en bicicleta utilizando como piezas nuestros accesorios que son muy útiles y a su vez ayudas al medio ambiente.
+      </p>
     </div>
+    <!--
     <div class="row g-4">
       <div class="col-12">
         <div class="row gy-4">
@@ -45,6 +49,7 @@
         </div>
       </div>
     </div>
+    -->
   </div>
 </div>
 
